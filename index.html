@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Find the place</title>
+	
+	<!-- Latest compiled JavaScript -->
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="icon" type="image/png" href="imgs/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="styles.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v4.min.js"></script>
+<script src="js1.js"></script><!--mapfile-->
+<script src="js1.1.js"></script><!--climate data file-->
+
+
+
+
+
+</head>
+<body>
+	<div class="container-fluid" style="position:relative;">
+	<div class="header">
+		
+
+		<h1><img src="imgs/location-graphic.png" style="width:60px;position:static;" >Find the place</h1>
+		<p><i>Find your place in Chicago, how you want it and where you want it!<i></p>
+	</div>
+
+		<ul id="menu">
+			<li><a href="#home">Home</a></li>
+			<li><a href="#menu">Menu</a></li>
+			<li><a href="#weather">Weather</a></li>
+		</ul>
+
+ 
+
+				<h3>Department of Computer Science – University of Illinois</h3>
+			<div id= "container" class = "row">
+				<div class="col-sm-7" style = "float:left;">
+					<div id="map"></div>	<div class ='tablecontainer'>	
+												<table id ="crimetable" class = "table1">
+												  <tr>
+												    <th onclick="sortTable(1)">Crime type</th>
+												    <th >Amount of crimes ▼ </th>
+												    
+
+												  </tr>
+												 </table>
+											</div>	
+
+
+											<div class ='tablecontainer'>	
+												<table id ="placetable" class = "table1">
+												  <tr>
+												    <th >Place name</th>
+												    <th onclick="sortTable(1)">Property type ▼ </th>
+												    <th >Phone number</th>
+												    <th >Address</th>
+												    <th >Distance</th>
+
+												  </tr>
+												 </table>
+											</div>	
+					<div id = "text" >hola(Works better in Chrome)</div>
+				</div>	    		 
+	    		 <div id = "data"class="col-sm-4" >
+	    		 <div id="placeinfo">
+	    		 	<h3>Place info</h3>
+	    		 	<div id="data1">
+	    		 		<div id = 'place-name'>Pick a map location to show info!</div>
+	    		 		<div id = 'address1'></div>
+	    		 		<div id = 'placetype'></div>
+	    		 		<div id = 'zip'></div>
+	    		 		<div id = 'phone'></div>
+	    		 		<div id = 'distance'></div>
+	    		 	</div>
+	    		 </div>
+	    		 	 <div id = "crimesbox" >
+	    		 	 	<h3>Safety info</h3>
+	    		 	 	<div id = 'place-name-crimes'>Pick a map location to show info!</div>
+	    		 	 	<div><strong>Description:</strong><span id = "description"></span></div>
+	    		 	 	<div id = "detail" style = "width:100%;"></div>
+	    		 	 	<p>Crimes rate inside circle area(since last year):</p>
+	    		 	 	<div id="grad1"></div>
+	    		 	  </div>
+	    		 	  <div id = "weather">
+	    		 	  	<h3>Weather Forecast: <span><i>Coming soon!</i></span></h3>
+	    		 	  	<p>Today is <strong>Sunny</strong> in Atacama desert (Chile):</p>
+	    		 	  	<img src="imgs/Desierto-Atacama1.jpg" class="img-circle" alt="Chile"  style = "position:relative;width:100%;height:60%;">	
+	    		  	  </div>
+	    		 </div>
+				
+				
+			</div>	
+			
+			<div class = "footer"></div>
+			<script  type="text/javascript"> cargarCrimenes(); </script>
+			 <script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIXFHsv3CfcYmpugAwDekO2OHBvtVFKJ0&callback=initMap">
+				</script>
+				
+
+	</div>			
+</body>
+
+</html>

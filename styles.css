@@ -1,0 +1,165 @@
+body	{
+	font-family: 'Lato',Arial,sans-serif;
+	background-color: #FFe;
+}
+
+h1{
+    text-align: left;
+    margin:80px;
+    }
+.header,.footer{
+       background: white; 
+    color: black;
+    padding: 15px;
+    width: 100%;
+
+}
+
+
+
+    div{
+        position: relative;;
+    }
+    #place-name-crimes{
+        width: 100%;
+    }
+
+
+ul	{
+
+
+	background-color:#96C90C;
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+
+}
+#data{
+   
+}
+
+#data1{
+    position: relative;
+   width: 100%;
+   height: 70%;
+}
+#data1 div,#crimesbox div{
+    
+    left: 16px;
+}
+
+#data1 div{
+    width: 100%;
+    left: 16px;
+}
+
+
+
+#crimesbox p{
+    position: absolute;
+    bottom: 18px;
+    left: 16px;
+
+}
+#grad1 {
+     position: absolute;     
+    border-radius: 25px;
+    bottom: 8px;
+    left: 1px;
+    height: 20px;
+    width: 375px;
+    opacity: 0.75;
+    background: red; /* For browsers that do not support gradients */    
+    background: -webkit-linear-gradient(left, yellow , red); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, yellow, red); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, yellow, red); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, yellow , red); /* Standard syntax (must be last) */
+}
+#map,#map-canvas {
+	width: 100%;
+			height: 400px;
+			background-color: grey;
+}
+#placeinfo {
+             width: 100%;
+            height: 200px;
+            
+            float: right;
+             background: rgba(9, 89, 180, 0.6)
+}
+
+#crimesbox {
+            margin-top: 10px;
+             width: 100%;
+            height: 200px;
+           
+            float: right;
+             background: rgba(51, 255, 51, 0.6)
+}
+
+#weather {
+             width: 100%;
+            height: 250px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            float: right;
+             background: rgba(102, 0, 204, 0.6)
+}
+
+h3{     text-align: center;
+}
+    
+    #container div{
+    
+            
+           display: inline-block;
+            
+}
+ 
+
+li{
+	 	float: left;
+	  text-align: center;
+
+}
+
+li a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    padding: 14px 16px 10px;
+    border-bottom: 3px solid #96C90C;
+}
+
+
+.tablecontainer{
+    max-height: 250px;
+    overflow-y: scroll;
+    width:100%;
+}
+.table1 {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    
+}
+
+.table1 td, .table1th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table1 tr:nth-child(even){background-color: #f2f2f2;}
+
+.table1 tr:hover {background-color: #ddd;}
+.table1 th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+
+}
