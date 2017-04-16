@@ -17,7 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script src="http://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="js1.js"></script><!--mapfile-->
 <script src="js1.1.js"></script><!--climate data file-->
 
@@ -46,8 +46,15 @@
 				<h3>Department of Computer Science – University of Illinois</h3>
 			<div id= "container" class = "row">
 				<div class="col-sm-7" style = "float:left;">
-					<div id="map"></div>	<div class ='tablecontainer'>	
-												<table id ="crimetable" class = "table1">
+					<div id="map"></div>
+						<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Look for place names or type...">
+						<!--<div style = "float:left;display:inline; width:100%;">
+							<p>Max:</p><input type="text" id="myInput2"  placeholder="max distance">
+						<p>Min:</p><input type="text" id="myInput3"  placeholder="min distance">
+						</div>-->
+						
+						<!--<div class ='tablecontainer'>	climate data file
+												<table id ="crimetable" class = "table1" style ="display:none;">
 												  <tr>
 												    <th onclick="sortTable(1)">Crime type</th>
 												    <th >Amount of crimes ▼ </th>
@@ -55,17 +62,17 @@
 
 												  </tr>
 												 </table>
-											</div>	
+											</div>	-->
 
 
 											<div class ='tablecontainer'>	
 												<table id ="placetable" class = "table1">
 												  <tr>
 												    <th >Place name</th>
-												    <th onclick="sortTable(1)">Property type ▼ </th>
+												    <th >Property type </th>
 												    <th >Phone number</th>
 												    <th >Address</th>
-												    <th >Distance</th>
+												    <th >Distance(Km)</th>
 
 												  </tr>
 												 </table>
@@ -75,21 +82,21 @@
 	    		 <div id = "data"class="col-sm-4" >
 	    		 <div id="placeinfo">
 	    		 	<h3>Place info</h3>
-	    		 	<div id="data1">
+	    		 	
 	    		 		<div id = 'place-name'>Pick a map location to show info!</div>
 	    		 		<div id = 'address1'></div>
 	    		 		<div id = 'placetype'></div>
 	    		 		<div id = 'zip'></div>
 	    		 		<div id = 'phone'></div>
 	    		 		<div id = 'distance'></div>
-	    		 	</div>
+	    		 	
 	    		 </div>
 	    		 	 <div id = "crimesbox" >
 	    		 	 	<h3>Safety info</h3>
 	    		 	 	<div id = 'place-name-crimes'>Pick a map location to show info!</div>
 	    		 	 	<div><strong>Description:</strong><span id = "description"></span></div>
-	    		 	 	<div id = "detail" style = "width:100%;"></div>
-	    		 	 	<p>Crimes rate inside circle area(since last year):</p>
+	    		 	 	<div id = "detail" ></div>
+	    		 	 	<div>Crimes rate inside circle area(since last year):</div>
 	    		 	 	<div id="grad1"></div>
 	    		 	  </div>
 	    		 	  <div id = "weather">
