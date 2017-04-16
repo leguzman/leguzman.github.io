@@ -28,7 +28,7 @@ h1{
 ul	{
 
 
-	background-color:#96C90C;
+	background-color:#96C90C;/*#96C90C;*/
 	list-style-type: none;
     margin: 0;
     padding: 0;
@@ -36,37 +36,46 @@ ul	{
 
 
 }
-#data{
-   
+#placeinfo div{
+   border-radius: 25px;
+   overflow: auto;
+}
+#data  div{
+   width: 95%;
+   border-radius: 25px;
+   /*border-radius: 0px;   */
+}
+#data div h3{
+  background: white; /* For browsers that do not support gradients */    
+    background: -webkit-linear-gradient( grey , lightgrey); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient( grey, lightgrey); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(grey, lightgrey); /* For Firefox 3.6 to 15 */
+    background: linear-gradient( grey , lightgrey); /* Standard syntax (must be last) */
+    /*border-radius: 25px;*/
+    margin-top: 0;
+
+
 }
 
-#data1{
-    position: relative;
-   width: 100%;
-   height: 70%;
-}
-#data1 div,#crimesbox div{
+
+#placeinfo div,#crimesbox div,#weather div{
+    border-radius: 0px;
     
     left: 16px;
 }
 
-#data1 div{
-    width: 100%;
+#placeinfo div{
+    width: 90%;
     left: 16px;
 }
 
 
 
-#crimesbox p{
-    position: absolute;
-    bottom: 18px;
-    left: 16px;
 
-}
 #grad1 {
-     position: absolute;     
+     position: relative;     
     border-radius: 25px;
-    bottom: 8px;
+    
     left: 1px;
     height: 20px;
     width: 375px;
@@ -85,7 +94,7 @@ ul	{
 #placeinfo {
              width: 100%;
             height: 200px;
-            
+            overflow: auto;
             float: right;
              background: rgba(9, 89, 180, 0.6)
 }
@@ -94,7 +103,7 @@ ul	{
             margin-top: 10px;
              width: 100%;
             height: 200px;
-           
+            overflow: auto;
             float: right;
              background: rgba(51, 255, 51, 0.6)
 }
@@ -105,7 +114,9 @@ ul	{
             margin-top: 10px;
             margin-bottom: 10px;
             float: right;
-             background: rgba(102, 0, 204, 0.6)
+             background: rgba(102, 0, 204, 0.6);
+             border-radius: 25px;
+             overflow: hidden;
 }
 
 h3{     text-align: center;
@@ -131,7 +142,7 @@ li a {
     color: white;
     text-align: center;
     padding: 14px 16px 10px;
-    border-bottom: 3px solid #96C90C;
+    
 }
 
 
@@ -159,7 +170,31 @@ li a {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #4CAF50;
+    background: #66f; /* For browsers that do not support gradients */    
+    opacity: 0.8;
     color: white;
 
+}
+
+#myInput {
+    border-radius: 10px;
+    background-image: url('imgs/searchicon.png') ; /* Add a search icon to input */
+    background-position: 8px 8px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 300px; /* Full-width */
+    max-width: 100%;
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+#myInput2,#myInput3 {
+    border-radius: 10px;
+    
+    width: 100px; /* Full-width */
+    max-width: 30%;
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
 }

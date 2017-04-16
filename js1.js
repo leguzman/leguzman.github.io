@@ -44,6 +44,7 @@ $( document ).ready(function() {//  D3 here
             var washedData = [];
             var washedCrimes = [];
             var crimetypes = [];
+            var totalcrimes =0;
             var image = 'imgs/'+'casita' + '.png';
 
             var color = d3.scaleLinear().domain([0, 6000]).range(['yellow', 'red']);﻿
@@ -52,6 +53,7 @@ $( document ).ready(function() {//  D3 here
 
            // console.log(d3);
             var coords = {lat: 41.8708, lng: -87.6505};
+            var sitecoords = coords;
                var rad = function(x) {
              return x * Math.PI / 180;
                                       };
@@ -145,7 +147,7 @@ $( document ).ready(function() {//  D3 here
              //   document.getElementById("text").innerHTML = getDistance(coords,sitecoords);
                
         
-       var trHTML = '<tr><td>' + dataLine[2] + '</td><td>' + dataLine[3] + '</td><td>' + dataLine[6] + '</td><td>' + dataLine[4] + '</td><td>' + dataLine[7]+'Km' + '</td></tr>';
+       var trHTML = '<tr><td>' + dataLine[2] + '</td><td>' + dataLine[3] + '</td><td>' + dataLine[6] + '</td><td>' + dataLine[4] + '</td><td>' + dataLine[7] + '</td></tr>';
     
     
           $('#placetable').append(trHTML);
@@ -225,7 +227,7 @@ $( document ).ready(function() {//  D3 here
                             //set the menu information about the market
                           
                            
-                               if (prev_cityCircle != null) {removeCircle();} 
+                               if (prev_cityCircle != null) {removeCircle();} //remover circulo anterior
                             
                             document.getElementById("place-name").innerHTML = "<b>Place Name</b>: " + washedData[key][2] + "</em>";
 
@@ -235,11 +237,11 @@ $( document ).ready(function() {//  D3 here
                             document.getElementById("phone").innerHTML = "<b>Phone</b>: <em>" + washedData[key][6] + "</em>";
                             document.getElementById("distance").innerHTML = "<b>Distance</b>: <em>" + washedData[key][7]+ "Km away from Computer Science Department</em>";
                                      
-                                    var sitecoords = {lat: Number(washedData[key][0]), lng: Number(washedData[key][1])};
-                                    var totalcrimes =0;
+                                    sitecoords = {lat: Number(washedData[key][0]), lng: Number(washedData[key][1])};
+                                    
                                     //crimes
-                                     
-                                      for (var j =0; j<crimetypes.length ;j+=2) crimetypes[j+1]=0;//resetear tabal de crimenes
+                                     totalcrimes = 0 ;
+                                      for (var j = 0; j<crimetypes.length ;j+=2) crimetypes[j+1]=0;//resetear tabal de crimenes
                                     
                                      for (var i = 0; i<washedCrimes.length; i++) {
                                           var crimecoords = {lat: Number(washedCrimes[i][0]), lng: Number(washedCrimes[i][1])};
@@ -247,38 +249,28 @@ $( document ).ready(function() {//  D3 here
                                           
                                        //   var cantidad = new array(crimetypes.length);
 
-                                          $("#crimetable td").remove(); //limpia la tabla de crimenes
+                                       //   $("#crimetable td").remove(); //limpia la tabla de crimenes
                                           if(distance<=1000) {
                                             totalcrimes++;
 
-                                           for (var j =0; j<crimetypes.length ;j+=2) {
-                                              if(crimetypes[j] == washedCrimes[i][2]){  crimetypes[j+1]++; }
-                                            };
-
+                                          
 
                                           }
 
                                      }
-                                     //ahora si llenamos la tabla
-                                     for (var j =0; j<crimetypes.length ;j+=2){
-                                      if (crimetypes[j+1]==0) {continue};
-                                      var trHTML = '<tr><td>' + crimetypes[j] +'</td><td>'+ crimetypes[j+1]  + '</td></tr>';
-    
-    
-                                      $('#crimetable').append(trHTML);
-                                    }
+                                    
 
 
                                      document.getElementById("text").innerHTML += "   totalcrimes:"+totalcrimes+"\n";
                                      document.getElementById("place-name-crimes").innerHTML = "<b>Crime rates in the area</b> (1Km around): <em>" + totalcrimes + "</em>";
 
                                       var k =(totalcrimes/1000);
-                                      if (k>6) {k=6.2};
+                                      if (k>6) {k=6.25};
                                       document.getElementById("description").innerHTML =  descriptions[parseInt(k)].description;
                                        document.getElementById("detail").innerHTML = descriptions[parseInt(k)].detail;
                                        
-                                      d3.select("#grad1").attr("width", (totalcrimes/100)+"%");
-                                      d3.selectAll("rect").transition().attr("x",(k*60)+"px")
+                                    //  d3.select("#grad1").attr("width", (totalcrimes/100)+"%");
+                                      d3.selectAll("rect").transition().duration(500).attr("x",(k*60)+"px")
 
 
 
@@ -360,14 +352,14 @@ $( document ).ready(function() {//  D3 here
                                                 dataLine.push(json.data[i][12]);
                                               
                                                  if (Number(dataLine[1])==0){trash++;continue;}//remove trash data
-                                              if (!contains(crimetypes,json.data[i][12])) {//loading type of crime
+                                            /*  if (!contains(crimetypes,json.data[i][12])) {//loading type of crime
                                               // var crimeobject = {type:json.data[i][12],amount:0 };//type of crime and amount
                                                 crimetypes.push(json.data[i][12],0);
                                                 var trHTML = '<tr><td>' + json.data[i][12] +'</td><td>'+ 0 + '</td></tr>';
     
     
                                                    $('#crimetable').append(trHTML);
-                                              };
+                                              };*/
 
                                                 washedCrimes.push(dataLine);
 
@@ -383,60 +375,7 @@ $( document ).ready(function() {//  D3 here
   }
 
 
-function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("placetable");
-  switching = true;
-  //Set the sorting direction to ascending:
-  dir = "asc";
-  /*Make a loop that will continue until
-  no switching has been done:*/
-  while (switching) {
-    //start by saying: no switching is done:
-    switching = false;
-    rows = table.getElementsByTagName("TR");
-    /*Loop through all table rows (except the
-    first, which contains table headers):*/
-    for (i = 1; i < (rows.length - 1); i++) {
-      //start by saying there should be no switching:
-      shouldSwitch = false;
-      /*Get the two elements you want to compare,
-      one from current row and one from the next:*/
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-      /*check if the two rows should switch place,
-      based on the direction, asc or desc:*/
-      if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch= true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch= true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /*If a switch has been marked, make the switch
-      and mark that a switch has been done:*/
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      //Each time a switch is done, increase this count by 1:
-      switchcount ++;
-    } else {
-      /*If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again.*/
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
-}
+
 
 
 function contains(a, obj) {
@@ -446,4 +385,60 @@ function contains(a, obj) {
         }
     }
     return false;
+}
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td,td2, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  //maxVal = Number(document.getElementById("myInput2").value);
+  //minVal = Number(document.getElementById("myInput3").value);
+  table = document.getElementById("placetable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    td2 = tr[i].getElementsByTagName("td")[1];
+    td3 = tr[i].getElementsByTagName("td")[4];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1
+         || td2.innerHTML.toUpperCase().indexOf(filter) > -1 
+     //   && (Number(td3.innerHTML) <= maxVal)
+      //   && (Number(td3.innerHTML) >= minVal)
+         ){
+          //document.getElementById("text").innerHTML=maxVal;
+        tr[i].style.display = "";
+        }
+       else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+
+function detalleCrimenes(sitecoords,totalcrimes){
+
+   //$("#crimetable td").remove(); //limpia la tabla de crimenes
+        for (var j =0; j<crimetypes.length ;j+=2) crimetypes[j+1]=0;//resetear tabal de crimenes
+                                    
+                                     for (var i = 0; i<washedCrimes.length; i++) {
+                                          var crimecoords = {lat: Number(washedCrimes[i][0]), lng: Number(washedCrimes[i][1])};
+                                          var distance=getDistance(sitecoords,crimecoords)
+                                          
+                                       //   var cantidad = new array(crimetypes.length);
+
+                                          $("#crimetable td").remove(); //limpia la tabla de crimenes
+                                          if(distance<=1000) {
+                                            totalcrimes++;
+
+                                           for (var j =0; j<crimetypes.length ;j+=2) {
+                                              if(crimetypes[j] == washedCrimes[i][2]){  crimetypes[j+1]++; }
+                                            };
+
+
+                                          }
+
+                                     }
 }
