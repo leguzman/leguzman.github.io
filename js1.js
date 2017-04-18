@@ -12,13 +12,12 @@ $( document ).ready(function() {//  D3 here
 
       var circle = canvas.append("circle").attr("cx",50).attr("cy",50).attr("r",25);                             
       
-      var bar = canvas.append("rect").attr("height","100%").attr("width","3px").attr("fill","white");
+      var bar = canvas.append("rect").attr("height","100%").attr("width","3px").attr("fill","white").attr("x",0);//la barrita que mide
      // circle.transition().duration(1500).attr("r",300);
          canvas.call(xAxis);
    
-         
-           //d3.select("#grad1").attr("width","20px");
-       //  canvas.append("p").text("#Crimes during last year:");
+
+      
 
 });
             //variables for safety descriptions
@@ -32,8 +31,10 @@ $( document ).ready(function() {//  D3 here
                                                 {description : "Very Unsafe (even more over average)", detail: "Criminals likes this place also. take care!"}      //>6000   
                                             ];
 
-
-                        
+                                            /*var typeofcrimes = ["OTHER OFFENSE","BATTERY","DECEPTIVE PRACTICE","THEFT","BURGLARY","CRIMINAL TRESPASS","ROBBERY","STALKING","NARCOTICS","CRIM SEXUAL ASSAULT","SEX OFFENSE","CONCEALED CARRY LICENSE VIOLATION","GAMBLING",
+                            "MOTOR VEHICLE THEFT","CRIMINAL DAMAGE","HOMICIDE","ASSAULT","OFFENSE INVOLVING CHILDREN","PUBLIC PEACE VIOLATION","WEAPONS VIOLATION","INTIMIDATION","PUBLIC INDECENCY","OTHER NARCOTIC VIOLATION",
+                              "NON-CRIMINAL","INTERFERENCE WITH PUBLIC OFFICER","ARSON","KIDNAPPING","LIQUOR LAW VIOLATION","PROSTITUTION","OBSCENITY","NON-CRIMINAL (SUBJECT SPECIFIED)","HUMAN TRAFFICKING"];
+                                  var amountOfCrimes = [typeofcrimes.length];*/
 
 
 
@@ -45,6 +46,7 @@ $( document ).ready(function() {//  D3 here
             var washedCrimes = [];
             var crimetypes = [];
             var totalcrimes =0;
+            var   cityCircle;
             var image = 'imgs/'+'casita' + '.png';
 
             var color = d3.scaleLinear().domain([0, 6000]).range(['yellow', 'red']);﻿
@@ -52,8 +54,9 @@ $( document ).ready(function() {//  D3 here
            
 
            // console.log(d3);
+           var sitecoords;
             var coords = {lat: 41.8708, lng: -87.6505};
-            var sitecoords = coords;
+             sitecoords = coords;
                var rad = function(x) {
              return x * Math.PI / 180;
                                       };
@@ -88,7 +91,7 @@ $( document ).ready(function() {//  D3 here
 
       var map = new google.maps.Map(mapDiv, {//Line 2: Create Map object passing element reference, center and zoom as parameters
       center: {lat: 41.8708, lng: -87.6505}, //This is Purdue University's Location
-      zoom: 14});
+      zoom: 13});
 
       var marker = new google.maps.Marker({ //Line 1
       position: {lat: 41.8708, lng: -87.6505}, //Line2: Location to be highlighted
@@ -136,7 +139,7 @@ $( document ).ready(function() {//  D3 here
                 //phone - 6
                 dataLine.push(json.data[i][14]);
                 //distance -7 
-                            var sitecoords = {lat: Number(dataLine[0]), lng: Number(dataLine[1])};
+                           sitecoords = {lat: Number(dataLine[0]), lng: Number(dataLine[1])};
                            var placedistance =(getDistance(coords,sitecoords)) ;
                            var roundedDistance = Math.round((placedistance)/10) / 100;
                 dataLine.push(roundedDistance);
@@ -147,7 +150,11 @@ $( document ).ready(function() {//  D3 here
              //   document.getElementById("text").innerHTML = getDistance(coords,sitecoords);
                
         
-       var trHTML = '<tr><td>' + dataLine[2] + '</td><td>' + dataLine[3] + '</td><td>' + dataLine[6] + '</td><td>' + dataLine[4] + '</td><td>' + dataLine[7] + '</td></tr>';
+       var trHTML = '<tr href = "#map" onclick="centrarMapa(this.firstChild.innerHTML);"><td >' + dataLine[2] + 
+                    '</td><td>' + dataLine[3] +
+                     '</td><td>' + dataLine[6] +
+                      '</td><td>' + dataLine[4] + 
+                      '</td><td>' + dataLine[7] + '</td></tr>';
     
     
           $('#placetable').append(trHTML);
@@ -210,9 +217,17 @@ $( document ).ready(function() {//  D3 here
 
                         });
 ////////////////////////////////////////////////////
+                                
+                                  google.maps.event.addDomListener(document.getElementById("placetable"), 'click', function(){//localizar desde la tabla
+                            setTimeout(function() {
+                                                      map.setCenter(sitecoords);  
+                                                      //detalleCrimenes(sitecoords,totalcrimes);
+                                                    }, (10 * 100));
+                            
+                          })
                           
                           
-                          var   cityCircle;
+                          
 
                           google.maps.event.addListener(markers[key], 'click', function() {
                             //if another window is open, close it
@@ -226,6 +241,7 @@ $( document ).ready(function() {//  D3 here
                             infowindow.open(map, markers[key]);
                             //set the menu information about the market
                           
+                                
                            
                                if (prev_cityCircle != null) {removeCircle();} //remover circulo anterior
                             
@@ -240,6 +256,7 @@ $( document ).ready(function() {//  D3 here
                                     sitecoords = {lat: Number(washedData[key][0]), lng: Number(washedData[key][1])};
                                     
                                     //crimes
+                                    $("#crimetable td").remove(); //limpia la tabla de crimenes
                                      totalcrimes = 0 ;
                                       for (var j = 0; j<crimetypes.length ;j+=2) crimetypes[j+1]=0;//resetear tabal de crimenes
                                     
@@ -247,17 +264,17 @@ $( document ).ready(function() {//  D3 here
                                           var crimecoords = {lat: Number(washedCrimes[i][0]), lng: Number(washedCrimes[i][1])};
                                           var distance=getDistance(sitecoords,crimecoords)
                                           
-                                       //   var cantidad = new array(crimetypes.length);
+                                        
 
-                                       //   $("#crimetable td").remove(); //limpia la tabla de crimenes
+                                          //$("#crimetable td").remove(); //limpia la tabla de crimenes
                                           if(distance<=1000) {
                                             totalcrimes++;
-
-                                          
+                                             
 
                                           }
 
                                      }
+                                     // detalleCrimenes(sitecoords,totalcrimes); 
                                     
 
 
@@ -289,6 +306,8 @@ $( document ).ready(function() {//  D3 here
 
                                      }); 
                                   prev_cityCircle=cityCircle;
+
+
 
 
                                   
@@ -352,24 +371,25 @@ $( document ).ready(function() {//  D3 here
                                                 dataLine.push(json.data[i][12]);
                                               
                                                  if (Number(dataLine[1])==0){trash++;continue;}//remove trash data
-                                            /*  if (!contains(crimetypes,json.data[i][12])) {//loading type of crime
+                                              if (!contains(crimetypes,json.data[i][12])) {//loading type of crime
                                               // var crimeobject = {type:json.data[i][12],amount:0 };//type of crime and amount
                                                 crimetypes.push(json.data[i][12],0);
-                                                var trHTML = '<tr><td>' + json.data[i][12] +'</td><td>'+ 0 + '</td></tr>';
+                                              
     
     
-                                                   $('#crimetable').append(trHTML);
-                                              };*/
+                                                //   $('#crimetable').append(trHTML);
+                                              };
 
                                                 washedCrimes.push(dataLine);
 
                                              
 
                                             };
+                                              $(".loader").hide();$(".loader2").hide();
                                                document.getElementById("text").innerHTML += Number(json.data.length)-trash;
 
                                                                                           }
-                                                                                        }
+                  }
 
 
   }
@@ -417,10 +437,21 @@ function myFunction() {
   }
 }
 
+        function centrarMapa(placename){
+      for (var i = 0; i < washedData.length; i++) {
+        if (washedData[i][2]==placename) {
+          sitecoords = {lat: Number(washedData[i][0]), lng: Number(washedData[i][1])};
+
+          break;
+          
+        };
+        
+      };
+     }
 
 function detalleCrimenes(sitecoords,totalcrimes){
 
-   //$("#crimetable td").remove(); //limpia la tabla de crimenes
+   $("#crimetable td").remove(); //limpia la tabla de crimenes
         for (var j =0; j<crimetypes.length ;j+=2) crimetypes[j+1]=0;//resetear tabal de crimenes
                                     
                                      for (var i = 0; i<washedCrimes.length; i++) {
@@ -429,16 +460,22 @@ function detalleCrimenes(sitecoords,totalcrimes){
                                           
                                        //   var cantidad = new array(crimetypes.length);
 
-                                          $("#crimetable td").remove(); //limpia la tabla de crimenes
+                                          //limpia la tabla de crimenes
                                           if(distance<=1000) {
                                             totalcrimes++;
 
                                            for (var j =0; j<crimetypes.length ;j+=2) {
-                                              if(crimetypes[j] == washedCrimes[i][2]){  crimetypes[j+1]++; }
+                                              if(crimetypes[j] == washedCrimes[i][2]){  crimetypes[j+1]++;
+                                                   break;     }
                                             };
-
 
                                           }
 
                                      }
+                                     for (var i = 0; i < crimetypes.length; i+=2) {
+                                      if(crimetypes[i+1]!=0)
+                                      { var trHTML = '<tr><td>' + crimetypes[i] + '</td><td>' + crimetypes[i+1] + '</td></tr>';
+                                                                              $('#crimetable').append(trHTML);}
+                                     };
+                                      
 }
