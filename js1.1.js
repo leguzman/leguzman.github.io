@@ -41,29 +41,29 @@
             var myArr = xmlhttp.responseText;
             var text = myArr;
             json = JSON.parse(text);
-            document.getElementById("text").innerHTML +=text;
+            //document.getElementById("text").innerHTML +=text;
             //alert(json.data[1][1]);
-         /*   for (var i = 0; i < json.results.length; i++) {
+            for (var i = 0; i < json.results.length; i++) {
               if (json.results[i].datatype=="TOBS")
-             {   document.getElementById("text").innerHTML +="TOBS: " +json.results[i].value+"\n";
+             {   document.getElementById("temp").innerHTML +="<strong>TOBS:</strong> " +json.results[i].value+"°F\n";
                //document.getElementById("text").innerHTML +=json.results[i];
                break;
              }
             };
             for (var i = 0; i < json.results.length; i++) {
               if (json.results[i].datatype=="TMAX")
-             {   document.getElementById("text").innerHTML +="TMAX: " +json.results[i].value+"\n";
+             {   document.getElementById("temp").innerHTML +="<strong>TMAX:</strong> " +json.results[i].value+"°F\n";
                //document.getElementById("text").innerHTML +=json.results[i];
                break;
              }
             };
             for (var i = 0; i < json.results.length; i++) {
               if (json.results[i].datatype=="TMIN")
-             {   document.getElementById("text").innerHTML +="TMIN: " +json.results[i].value+"\n";
+             {   document.getElementById("temp").innerHTML +="<strong>TMIN:</strong> " +json.results[i].value+"°F\n";
                //document.getElementById("text").innerHTML +=json.results[i];
                break;
              }
-            };*/
+            };
             
         }
 

@@ -285,7 +285,7 @@ $( document ).ready(function() {//  D3 here
                                     
 
 
-                                     document.getElementById("text").innerHTML += "   totalcrimes:"+totalcrimes+"\n";
+                                   //  document.getElementById("text").innerHTML += "   totalcrimes:"+totalcrimes+"\n";
                                      document.getElementById("place-name-crimes").innerHTML = "<b>Crime rates in the area</b> (1Km around): <em>" + totalcrimes + "</em>";
 
                                       var k =(totalcrimes/1000);
@@ -393,7 +393,7 @@ $( document ).ready(function() {//  D3 here
 
                                             };
                                               $(".loader").hide();$(".loader2").hide();
-                                               document.getElementById("text").innerHTML += Number(json.data.length)-trash;
+                                             //  document.getElementById("text").innerHTML += Number(json.data.length)-trash;
 
                                                                                           }
                   }
