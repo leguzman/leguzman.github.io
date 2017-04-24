@@ -19,7 +19,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
-
+<!--pie-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.2/d3.min.js"></script>
+<script src="d3pie.min.js"></script>
 
 <script src="js1.js"></script><!--mapfile-->
 <script src="js1.1.js"></script><!--climate data file-->
@@ -50,7 +52,9 @@
 				<h3>Department of Computer Science – University of Illinois</h3>
 			<div id= "container" class = "row">
 				<div class="col-md-7" style = "float:left;">
-					<div id="map"></div>
+					<div id="map" ></div>
+					
+
 						<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Look for place names or type...">
 						<!--<div style = "float:left;display:inline; width:100%;">
 							<p>Max:</p><input type="text" id="myInput2"  placeholder="max distance">
@@ -58,6 +62,7 @@
 						</div>-->
 						<div class="loader"></div>
 					 <div class="loader2"><i>You have a slow internet...so please wait until crimes data load...</i></div>
+					 	
 											<div class ='tablecontainer'>	
 												<table id ="placetable" class = "table1">
 												  <thead>
@@ -92,20 +97,24 @@
 	    		 	
 	    		 </div>
 	    		 	 <div id = "crimesbox" >
-	    		 	 	<h3>Safety info</h3>
-	    		 	 	<div id = 'place-name-crimes'>Pick a map location to show info!</div>
-	    		 	 	<div><strong>Description:</strong><span id = "description"></span></div>
-	    		 	 	<div id = "detail" ></div>
-	    		 	 	<div>Crimes rate inside circle area(since last year):</div>
-	    		 	 	<div id="grad1"></div>
-	    		 	 	<div><a href="#crimetable"><button  onclick ="detalleCrimenes(sitecoords,totalcrimes);" style="position:bottom-center;">Get crimes detailes info</button></a>
-	    		 	 	</div>	
-	    		 	 	<div class ='tablecontainer'>	
-												<table id ="crimetable" class = "table1" >
-												  
-												 </table>
-											</div>	
+				    		 	 	<h3>Safety info</h3>
+				    		 	 	<div id = 'place-name-crimes'>Pick a map location to show info!</div>
+				    		 	 	<div><strong>Description:</strong><span id = "description"></span></div>
+				    		 	 	<div id = "detail" ></div>
+				    		 	 	<div>Crimes rate inside circle area(since last year):</div>
+				    		 	 	<div id="grad1"></div>
+				    		 	 	<div><a href="#crimetable"><button class = button onclick ="detalleCrimenes(sitecoords,totalcrimes);" style="position:bottom-center;">Get more details!</button></a>
+				    		 	 	</div>	
+				    		 	 
+				    		 	 	<div class ='tablecontainer'>	
+															<table id ="crimetable" class = "table1" >
+															  
+															 </table>
+									</div>	
+
 	    		 	  </div>
+	    		 	  	 <div id= "torta" style = "width:200px;height:350px;display:none;"></div>
+
 	    		 	  <div id = "weather">
 	    		 	  	<h3>Weather Forecast: <span><i>Coming soon!</i></span></h3>
 	    		 	  	<p>Today is <strong>Sunny</strong> in Atacama desert (Chile):</p>

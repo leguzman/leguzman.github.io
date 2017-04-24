@@ -17,7 +17,6 @@ $( document ).ready(function() {//  D3 here
          canvas.call(xAxis);
    
 
-      
 
 });
             //variables for safety descriptions
@@ -48,7 +47,7 @@ $( document ).ready(function() {//  D3 here
             var totalcrimes =0;
             var   cityCircle;
             var image = 'imgs/'+'casita' + '.png';
-
+            var pie;//crimes pie
             var color = d3.scaleLinear().domain([0, 6000]).range(['yellow', 'red']);﻿
 
            
@@ -150,7 +149,7 @@ $( document ).ready(function() {//  D3 here
              //   document.getElementById("text").innerHTML = getDistance(coords,sitecoords);
                
         
-       var trHTML = '<tr href = "#map" onclick="centrarMapa(this.firstChild.innerHTML);"><td >' + dataLine[2] + 
+       var trHTML = '<tr onclick="centrarMapa(this.firstChild.innerHTML);"><td >' + dataLine[2] + 
                     '</td><td>' + dataLine[3] +
                      '</td><td>' + dataLine[6] +
                       '</td><td>' + dataLine[4] + 
@@ -222,6 +221,14 @@ $( document ).ready(function() {//  D3 here
                             setTimeout(function() {
                                                       map.setCenter(sitecoords);  
                                                       //detalleCrimenes(sitecoords,totalcrimes);
+                                                      google.maps.event.addListener( map, 'center_changed', function(){
+                                                      
+
+                              google.maps.event.trigger( map.getCenter, 'click');
+
+
+                              } );
+
                                                     }, (10 * 100));
                             
                           })
@@ -229,18 +236,18 @@ $( document ).ready(function() {//  D3 here
                           
                           
 
-                          google.maps.event.addListener(markers[key], 'click', function() {
+                          google.maps.event.addListener(markers[key], 'click', function () {
                             //if another window is open, close it
                             if( prev_infowindow ) {
                                 prev_infowindow.close();
 
                             }
-
+                                
 
                             infowindow.setContent(washedData[key][2]);
                             infowindow.open(map, markers[key]);
                             //set the menu information about the market
-                          
+                            $("#torta").hide(1000);
                                 
                            
                                if (prev_cityCircle != null) {removeCircle();} //remover circulo anterior
@@ -441,7 +448,7 @@ function myFunction() {
       for (var i = 0; i < washedData.length; i++) {
         if (washedData[i][2]==placename) {
           sitecoords = {lat: Number(washedData[i][0]), lng: Number(washedData[i][1])};
-
+          javascript:window.location='#map';
           break;
           
         };
@@ -450,7 +457,10 @@ function myFunction() {
      }
 
 function detalleCrimenes(sitecoords,totalcrimes){
-
+    var data =[];
+    $("#torta").show(1000);
+    if (pie!=null) {pie.destroy()};
+    
    $("#crimetable td").remove(); //limpia la tabla de crimenes
         for (var j =0; j<crimetypes.length ;j+=2) crimetypes[j+1]=0;//resetear tabal de crimenes
                                     
@@ -475,7 +485,115 @@ function detalleCrimenes(sitecoords,totalcrimes){
                                      for (var i = 0; i < crimetypes.length; i+=2) {
                                       if(crimetypes[i+1]!=0)
                                       { var trHTML = '<tr><td>' + crimetypes[i] + '</td><td>' + crimetypes[i+1] + '</td></tr>';
-                                                                              $('#crimetable').append(trHTML);}
+                                                                              $('#crimetable').append(trHTML);
+                                        data.push({label:crimetypes[i] , value: crimetypes[i+1]});
+
+                                      }
                                      };
+
+
+                                    
+ pie = new d3pie("#torta", {
+  "header": {
+    "title": {
+      "text": "Crime details in this area",
+      "fontSize": 24,
+      "font": "open sans"
+    },
+    "subtitle": {
+      "color": "#999999",
+      "fontSize": 12,
+      "font": "open sans"
+    },
+    "titleSubtitlePadding": 9
+  },
+  "footer": {
+    "color": "#999999",
+    "fontSize": 10,
+    "font": "open sans",
+    "location": "bottom-left"
+  },
+  "size": {
+    "canvasWidth": 500,
+    "canvasHeight": 350,
+    "pieOuterRadius": "80%"
+  },
+  "data": {
+    "sortOrder": "value-desc",
+    smallSegmentGrouping: {
+        enabled: true,
+        value: 1,
+        valueType: "percentage",
+        label: "OTHER CRIMES"
+      },
+    "content": data
+  },
+  "labels": {
+    "outer": {
+      "pieDistance": 20
+        
+    },
+    "inner": {
+      "hideWhenLessThanPercentage": 3
+    },
+    "mainLabel": {
+      "fontSize": 10
+
+    },
+    "percentage": {
+      "color": "#ffffff",
+      "decimalPlaces": 0
+    },
+    "value": {
+      "color": "#adadad",
+      "fontSize": 11
+    },
+    "lines": {
+      "enabled": true
+    },
+    "truncation": {
+      "enabled": false
+    }
+
+
+  },
+  "effects": {
+    "pullOutSegmentOnClick": {
+      "effect": "linear",
+      "speed": 400,
+      "size": 8
+    }
+
+  },
+  "misc": {
+    "gradient": {
+      "enabled": true,
+      "percentage": 100
+    }
+  }
+});
+                 /*                    //crimes pie
+          var colorie = d3.scaleOrdinal()﻿.range(["red","orange","green","pink"]);
+         // var data = [10,50,80];
+          var r =100;
+         var tortacanvas = d3.select("#torta").append("svg")
+                            .attr("height","100%").attr("width","100%");
+         var group = tortacanvas.append("g").attr("transform","translate(100,100)");
+
+         var arc = d3.arc().outerRadius(r).innerRadius(0);
+         var pie = d3.pie().value(function(d){return d;});
+         var arcs = group.selectAll(".arc").data(pie(data))
+                                            .enter()
+                                            .append("g")
+                                            .attr("class","arc");
+        arcs.append("path")
+                    .attr("d",arc)
+                    .attr("fill",function(d){return colorie(d.data);});
+
+        arcs.append("text").attr("transform",function(d){return "translate("+arc.centroid(d)+")";})
+                            .attr("text-anchor","middle")
+                            .attr("font-size","1.5em")
+                            .text(function(d){return d.data;});*/
                                       
-}
+    
+    }
