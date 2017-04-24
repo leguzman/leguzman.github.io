@@ -221,13 +221,7 @@ $( document ).ready(function() {//  D3 here
                             setTimeout(function() {
                                                       map.setCenter(sitecoords);  
                                                       //detalleCrimenes(sitecoords,totalcrimes);
-                                                      google.maps.event.addListener( map, 'center_changed', function(){
                                                       
-
-                              google.maps.event.trigger( map.getCenter, 'click');
-
-
-                              } );
 
                                                     }, (10 * 100));
                             
