@@ -1,0 +1,9 @@
+
+.presenter{
+    border-radius: 1vh;
+    background-color: transparent; 
+    height: 80vh;
+    width: 50vw;
+    min-width: 300px;
+    margin-top: 10px;
+}

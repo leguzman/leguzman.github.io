@@ -1,0 +1,46 @@
+.side-bar-container{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    background-color: rgba(22,27,34,0.4);
+    height: 80vh;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    margin-top: 10px;
+    p,div,span {
+        text-align: center;
+    }
+    span{
+        color: lightgrey;
+    }
+}
+.profile-pic{
+    align-self: center;
+    border: 1px solid  #30363d;
+    object-fit: cover;
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    margin: 20px;
+}
+.bicon{
+    height: 40px;
+    width: 40px;
+    margin: 10px;
+}
+.badge {
+    background: rgb(133,103,103,0.7);
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    padding: 10px;
+    align-self: center;
+    margin: 10px;
+        
+        div,a{ align-self: center;
+                color: aliceblue;        
+        }
+}
